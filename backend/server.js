@@ -31,7 +31,7 @@ const app = express();
 // Middleware
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: ["https://rentelite.netlify.app", "http://localhost:5173"],
         credentials: true,
     })
 );
@@ -443,7 +443,8 @@ if (process.env.NODE_ENV === "production") {
 // Update CORS settings for production
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: ["https://rentelite.netlify.app", "http://localhost:5173"],
         credentials: true,
     })
 );
+
