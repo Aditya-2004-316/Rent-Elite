@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import api from "../services/api";
 import { FaLock, FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import LandingNavbar from "./LandingNavbar";
 import LandingFooter from "./LandingFooter";
@@ -28,13 +28,10 @@ const ResetPassword = () => {
         setError("");
 
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/auth/reset-password",
-                {
-                    token,
-                    newPassword: password,
-                }
-            );
+            const response = await api.post("/auth/reset-password", {
+                token,
+                newPassword: password,
+            });
 
             if (response.data.success) {
                 setSuccess(true);
@@ -177,3 +174,4 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+
