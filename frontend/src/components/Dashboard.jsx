@@ -17,9 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 import Footer from "./Footer";
 import { useSettings } from "../context/SettingsContext";
 import ChatBot from "./ChatBot";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import More from "../assets/more.png";
-import "react-lazy-load-image-component/src/effects/blur.css";
 
 const companyNameMappings = {
     Mercedes: "Mercedes",
@@ -240,17 +238,16 @@ const Dashboard = () => {
                         : "bg-white shadow-md"
                 }`}
             >
-                <LazyLoadImage
-                    src={car.image}
-                    alt={car.name}
-                    effect="blur"
-                    className="w-full h-48 object-cover"
-                    threshold={300}
-                    placeholderSrc="/placeholder-car.jpg"
-                    onClick={() => handleCarClick(car)}
-                    wrapperClassName="w-full h-48"
-                    style={{ objectFit: "cover" }}
-                />
+                <div className="w-full h-48">
+                    <img
+                        src={car.image}
+                        alt={car.name}
+                        className="w-full h-48 object-cover"
+                        onClick={() => handleCarClick(car)}
+                        style={{ objectFit: "cover" }}
+                        loading="lazy"
+                    />
+                </div>
                 <div
                     className={`absolute top-2 right-2 text-white text-xs py-1 px-2 rounded hidden group-hover:block ${
                         label === "Featured"
@@ -408,14 +405,6 @@ const Dashboard = () => {
                                                 {showAllFeatured
                                                     ? "Show Less"
                                                     : "More"}
-                                                {/* <FaChevronDown
-                                                    className={`transition-transform duration-300 
-                                                    ${
-                                                        showAllFeatured
-                                                            ? "rotate-180"
-                                                            : ""
-                                                    }`}
-                                                /> */}
                                                 <img
                                                     src={More}
                                                     alt="More Icon"
@@ -426,12 +415,9 @@ const Dashboard = () => {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {renderVehicles(
-                                            featuredCars.slice(
-                                                0,
-                                                showAllFeatured
-                                                    ? featuredCars.length
-                                                    : 9
-                                            ),
+                                            showAllFeatured
+                                                ? featuredCars
+                                                : featuredCars.slice(0, 9),
                                             "Featured"
                                         )}
                                     </div>
@@ -440,16 +426,12 @@ const Dashboard = () => {
                             {newArrivalCars.length > 0 && (
                                 <>
                                     <div
-                                        className={`flex justify-between items-center ${
-                                            featuredCars.length === 0
-                                                ? "mb-6"
-                                                : "mt-8 mb-6"
-                                        } p-2 rounded shadow transition-colors duration-300 
-                                    ${
-                                        darkMode
-                                            ? "bg-orange-900 text-white"
-                                            : "bg-orange-100 text-gray-900"
-                                    }`}
+                                        className={`flex justify-between items-center mt-12 mb-6 p-2 rounded shadow transition-colors duration-300
+                                        ${
+                                            darkMode
+                                                ? "bg-orange-900 text-white"
+                                                : "bg-orange-100 text-gray-900"
+                                        }`}
                                     >
                                         <h2 className="text-3xl font-bold flex items-center">
                                             <img
@@ -457,7 +439,7 @@ const Dashboard = () => {
                                                 alt="New Car Icon"
                                                 className="mr-4 w-10 h-10"
                                             />
-                                            Latest Additions
+                                            New Arrivals
                                         </h2>
                                         {newArrivalCars.length > 9 && (
                                             <button
@@ -475,14 +457,6 @@ const Dashboard = () => {
                                                 {showAllNewArrivals
                                                     ? "Show Less"
                                                     : "More"}
-                                                {/* <FaChevronDown
-                                                    className={`transition-transform duration-300 
-                                                    ${
-                                                        showAllNewArrivals
-                                                            ? "rotate-180"
-                                                            : ""
-                                                    }`}
-                                                /> */}
                                                 <img
                                                     src={More}
                                                     alt="More Icon"
@@ -493,12 +467,9 @@ const Dashboard = () => {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {renderVehicles(
-                                            newArrivalCars.slice(
-                                                0,
-                                                showAllNewArrivals
-                                                    ? newArrivalCars.length
-                                                    : 9
-                                            ),
+                                            showAllNewArrivals
+                                                ? newArrivalCars
+                                                : newArrivalCars.slice(0, 9),
                                             "New"
                                         )}
                                     </div>
@@ -507,27 +478,22 @@ const Dashboard = () => {
                             {otherOptions.length > 0 && (
                                 <>
                                     <div
-                                        className={`flex justify-between items-center ${
-                                            featuredCars.length === 0 &&
-                                            newArrivalCars.length === 0
-                                                ? "mb-6"
-                                                : "mt-8 mb-6"
-                                        } p-2 rounded shadow transition-colors duration-300 
-                                    ${
-                                        darkMode
-                                            ? "bg-green-900 text-white"
-                                            : "bg-green-100 text-gray-900"
-                                    }`}
+                                        className={`flex justify-between items-center mt-12 mb-6 p-2 rounded shadow transition-colors duration-300
+                                        ${
+                                            darkMode
+                                                ? "bg-green-900 text-white"
+                                                : "bg-green-100 text-gray-900"
+                                        }`}
                                     >
                                         <h2 className="text-3xl font-bold flex items-center">
                                             <img
                                                 src={classic}
-                                                alt="Classic Icon"
-                                                className="mr-4 w-8 h-8"
+                                                alt="Classic Car Icon"
+                                                className="mr-4 w-10 h-10"
                                             />
-                                            Classic Collection
+                                            Classic Fleet
                                         </h2>
-                                        {otherOptions.length > 18 && (
+                                        {otherOptions.length > 9 && (
                                             <button
                                                 onClick={() =>
                                                     toggleSection("classic")
@@ -543,14 +509,6 @@ const Dashboard = () => {
                                                 {showAllClassic
                                                     ? "Show Less"
                                                     : "More"}
-                                                {/* <FaChevronDown
-                                                    className={`transition-transform duration-300 
-                                                    ${
-                                                        showAllClassic
-                                                            ? "rotate-180"
-                                                            : ""
-                                                    }`}
-                                                /> */}
                                                 <img
                                                     src={More}
                                                     alt="More Icon"
@@ -561,12 +519,9 @@ const Dashboard = () => {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {renderVehicles(
-                                            otherOptions.slice(
-                                                0,
-                                                showAllClassic
-                                                    ? otherOptions.length
-                                                    : 18
-                                            )
+                                            showAllClassic
+                                                ? otherOptions
+                                                : otherOptions.slice(0, 9)
                                         )}
                                     </div>
                                 </>
@@ -577,16 +532,16 @@ const Dashboard = () => {
             </div>
             {selectedCar && (
                 <CarImageModal
-                    image={selectedCar.image}
                     isOpen={isModalOpen}
                     onClose={closeModal}
+                    car={selectedCar}
                 />
             )}
-            {isBookingModalOpen && selectedBookingCar && (
+            {selectedBookingCar && (
                 <BookingModal
-                    car={selectedBookingCar}
                     isOpen={isBookingModalOpen}
                     onClose={handleBookingClose}
+                    car={selectedBookingCar}
                     onConfirm={handleBookingConfirm}
                 />
             )}
