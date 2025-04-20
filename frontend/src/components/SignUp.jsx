@@ -14,6 +14,7 @@ import {
 import LandingNavbar from "./LandingNavbar";
 import LandingFooter from "./LandingFooter";
 import useScrollToTop from "../hooks/useScrollToTop";
+import api from "../services/api";
 
 const SignUp = () => {
     useScrollToTop();
@@ -58,15 +59,12 @@ const SignUp = () => {
         }
 
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/auth/register",
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                    phone: formData.phone,
-                }
-            );
+            const response = await api.post("/auth/register", {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                phone: formData.phone,
+            });
 
             if (response.status === 201) {
                 // Show success message
