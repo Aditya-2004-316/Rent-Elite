@@ -9,6 +9,7 @@ import LandingFooter from "./LandingFooter";
 import useScrollToTop from "../hooks/useScrollToTop";
 import SecurityQuestion from "./SecurityQuestion";
 import { useAuth } from "../context/AuthContext";
+import api from "../services/api";
 
 const Login = () => {
     useScrollToTop();
@@ -56,13 +57,10 @@ const Login = () => {
         setError("");
 
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/auth/login",
-                {
-                    email: credentials.email.toLowerCase(),
-                    password: credentials.password,
-                }
-            );
+            const response = await api.post("/auth/login", {
+                email: credentials.email.toLowerCase(),
+                password: credentials.password,
+            });
 
             // Debug logging
             console.log("Login response:", response.data);
@@ -447,3 +445,4 @@ const Login = () => {
 };
 
 export default Login;
+
