@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../services/api";
 
 const Register = () => {
     const [credentials, setCredentials] = useState({
@@ -24,10 +24,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(
-                "http://localhost:5000/api/auth/register",
-                credentials
-            );
+            const response = await api.post("/auth/register", credentials);
 
             if (response.data.token) {
                 localStorage.setItem("authToken", response.data.token);
