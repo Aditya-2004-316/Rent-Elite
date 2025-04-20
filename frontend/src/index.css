@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+/* Global dark mode transition */
+* {
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Smooth scrolling */
+:root {
+    --transition-duration: 0.3s;
+}
+
+body {
+    @apply antialiased;
+    transition: background-color var(--transition-duration) ease-in-out,
+        color var(--transition-duration) ease-in-out;
+}
+
+/* Dark mode transitions */
+.dark body {
+    @apply bg-dark text-dark-text;
+}
+
+/* Hero section overlay gradient */
+.hero-overlay {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+}
+
+/* Transitions */
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+body {
+    font-family: "Poppins", sans-serif; /* Default font for the body */
+    background-color: #f0fbf7; /* Set the background color */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Kanit", sans-serif; /* Use Kanit for headings */
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: black;
+}
+
+.link-hover:hover {
+    color: black;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.w-8-10 {
+    width: 80%;
+}
+
+.w-2-10 {
+    width: 20%;
+}
+
+a {
+    position: relative;
+    display: inline-block;
+}
+
+.default-icon {
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.hover-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 100%;
+    height: 100%;
+}
+
+a:hover .default-icon,
+a:focus .default-icon,
+a:active .default-icon {
+    opacity: 0;
+}
+
+a:hover .hover-icon,
+a:focus .hover-icon,
+a:active .hover-icon {
+    opacity: 1;
+}
+
+.filter-white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
+        brightness(100%) contrast(100%);
+}
+
+/* Custom scrollbar for the filters sidebar */
+.custom-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 0px; /* Safari and Chrome */
+    background: transparent; /* Optional: just to ensure the scrollbar is hidden */
+}
+
+/* Custom class to apply to all components that should transition in dark mode */
+.dark-mode-transition {
+    transition: background-color var(--transition-duration) ease-in-out,
+        color var(--transition-duration) ease-in-out,
+        border-color var(--transition-duration) ease-in-out,
+        box-shadow var(--transition-duration) ease-in-out;
+}
+
+/* Styling for buttons in dark mode */
+.dark button.btn-primary {
+    @apply bg-dark-accent text-dark-text hover:bg-dark-accent2;
+}
+
+.dark button.btn-secondary {
+    @apply bg-dark-card text-dark-text border-dark-border hover:bg-dark-hover;
+}
+
+/* Input styling for dark mode */
+.dark input,
+.dark select,
+.dark textarea {
+    @apply bg-dark-input text-dark-text border-dark-border focus:border-dark-accent focus:shadow-dark-outline;
+}
+
+/* Card styling for dark mode */
+.dark .card {
+    @apply bg-dark-card border-dark-border shadow-dark-md;
+}
+
+/* Table styling for dark mode */
+.dark table tbody tr:nth-child(odd) {
+    @apply bg-dark-lighter;
+}
+
+.dark table tbody tr:nth-child(even) {
+    @apply bg-dark-card;
+}
+
+.dark table th {
+    @apply bg-dark-header text-dark-text border-dark-border;
+}
+
+.dark table td {
+    @apply border-dark-border;
+}
+
+/* Input focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+    @apply outline-none ring-2 ring-emerald-500;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+    @apply ring-dark-accent ring-opacity-70;
+}
